@@ -4,7 +4,9 @@
   "description": "Testing GitHub App API Authentication",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "list-installations": "node list-installations.js",
+    "repository-permissions": "node repository-permissions.js"
   },
   "dependencies": {
     "@octokit/auth-app": "^4.0.9",

@@ -218,13 +218,14 @@ async function listInstallations() {
         });
         
         // Fetch repositories accessible to this installation
-        const { data: repoData } = await installationOctokit.apps.listReposAccessibleToInstallation();
+        // Fetch all repositories accessible to this installation using pagination
+        const accessibleRepos = await installationOctokit.paginate(installationOctokit.apps.listReposAccessibleToInstallation);
         
-        console.log(`   Repositories accessible to this installation: ${repoData.repositories.length}`);
+        console.log(`   Repositories accessible to this installation: ${accessibleRepos.length}`);
         
-        if (repoData.repositories.length > 0) {
+        if (accessibleRepos.length > 0) {
           console.log('\n   Repository List:');
-          repoData.repositories.forEach((repo, repoIndex) => {
+          accessibleRepos.forEach((repo, repoIndex) => {
             console.log(`   ${repoIndex + 1}. ${repo.full_name}`);
             console.log(`      Description: ${repo.description || 'No description'}`);
             console.log(`      Visibility: ${repo.visibility || repo.private ? 'private' : 'public'}`);
